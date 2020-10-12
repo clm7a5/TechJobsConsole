@@ -42,7 +42,7 @@ namespace TechJobsConsole
                     {
                         List<string> results = JobData.FindAll(columnChoice);
 
-                        Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***");
+                        Console.WriteLine("\n* All " + columnChoices[columnChoice] + " Values *");
                         foreach (string item in results)
                         {
                             Console.WriteLine(item);
@@ -63,7 +63,11 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        //use searchResults instead of Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
+                  
+                    
                     }
                     else
                     {
@@ -104,7 +108,7 @@ namespace TechJobsConsole
 
                 if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
                 {
-                    Console.WriteLine("Invalid choices. Try again.");
+                    Console.WriteLine("Invalid, Make Another Choice.");
                 }
                 else
                 {
@@ -118,7 +122,25 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            //Console.WriteLine("PrintJobs is not implemented yet");
+            int count = someJobs.Count;
+            if (count == 0)
+            {
+                Console.WriteLine("No result");
+            }
+            else
+            {
+                foreach (Dictionary<string, string> item in someJobs)
+                {
+                    Console.WriteLine("\n*");
+                    foreach (KeyValuePair<string, string> itemLine in item)
+                    {
+                        if (itemLine.Key != "S.no")
+                            Console.WriteLine(itemLine.Key + " : " + itemLine.Value);
+                    }
+                    Console.WriteLine("*\n\n");
+                }
+            }
         }
     }
 }
